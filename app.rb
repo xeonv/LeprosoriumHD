@@ -3,21 +3,30 @@ require 'rubygems'
 require 'sinatra'
 require 'sinatra/reloader'
 require 'sqlite3'
+require 'sinatra/activerecord'
+set:database, "sqlite3:leprosorium.db"
 
-def init_db
-	@db=SQLite3::Database.new 'leprosorium.db'
-	@db.results_as_hash = true
+class Post<ActiveRecord::Base
 end
+class Comment<ActiveRecord::Base
+end
+
+
+
 
 before do
 init_db
 end
 
-configure do
-	init_db
-  @db.execute 'CREATE TABLE IF NOT EXISTS Posts (id INTEGER PRIMARY KEY AUTOINCREMENT, created_date DATE, content TEXT, author TEXT )'
-  @db.execute 'CREATE TABLE IF NOT EXISTS Comments (id INTEGER PRIMARY KEY AUTOINCREMENT, created_date DATE, content TEXT, post_id INTEGER)'
-end
+# configure do
+	
+  
+
+
+
+#   @db.execute 'CREATE TABLE IF NOT EXISTS Posts (id INTEGER PRIMARY KEY AUTOINCREMENT, created_date DATE, content TEXT, author TEXT )'
+#   @db.execute 'CREATE TABLE IF NOT EXISTS Comments (id INTEGER PRIMARY KEY AUTOINCREMENT, created_date DATE, content TEXT, post_id INTEGER)'
+# end
 
 get '/' do
 	@results = @db.execute 'select * from Posts order by id desc'
