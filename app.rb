@@ -7,8 +7,10 @@ require 'sinatra/activerecord'
 set:database, "sqlite3:leprosorium.db"
 
 class Post<ActiveRecord::Base
+  has_many :comments
 end
 class Comment<ActiveRecord::Base
+  belongs_to:author
 end
 
 
@@ -37,11 +39,10 @@ post '/new' do
 end
 
 get '/details/:id' do
-	post_id = params[:id]
 
-	results = @db.execute 'select * from Posts where id=?', [post_id]
-		@row = results [0]
-	@comments = @db.execute 'select * from Comments  where post_id=? order by id', [post_id]
+	@post = Post.find params[:id]
+		
+	@comments = @post.comments
 	erb :details
 end
 

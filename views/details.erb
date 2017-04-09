@@ -1,9 +1,9 @@
 <h4>Post details:</h4>
 <br/>
 <p>
-		<%= @row['content'] %>
+		<%= @post.content %>
 		<br/><br/>
-		Added at: <%= @row['created_date'] %>
+		Added at: <%= @post.created_at %>
 		
 </p>
 <br/>
@@ -11,9 +11,9 @@
 
 <% @comments.each do |comment|%>
 		<p>
-		<%= comment['content'] %>
+		<%= comment.content %>
 		<br/><br/>
-		<span style = "font-size: 75%; color:#999">Add to: <%= comment['created_date'] %></span>
+		<span style = "font-size: 75%; color:#999">Add to: <%= comment.created_at %></span>
 		</p>
 		<hr/>
 <%end%>
@@ -21,7 +21,7 @@
 
 
 
-<form action="/details/<%= @row['id'] %>"  method ="post" role="form">
+<form action="/details/<%= @post.id %>"  method ="post" role="form">
 			<div class="form-group">
 				<textarea name="content" class="form-control" rows="6" style="width: 800px" placeholder="Type comment text here"></textarea>
 			</div>
