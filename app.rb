@@ -15,21 +15,14 @@ end
 
 
 before do
-init_db
+@posts = Post.order "created_at DESC"
 end
 
 # configure do
-	
-  
 
-
-
-#   @db.execute 'CREATE TABLE IF NOT EXISTS Posts (id INTEGER PRIMARY KEY AUTOINCREMENT, created_date DATE, content TEXT, author TEXT )'
-#   @db.execute 'CREATE TABLE IF NOT EXISTS Comments (id INTEGER PRIMARY KEY AUTOINCREMENT, created_date DATE, content TEXT, post_id INTEGER)'
 # end
 
 get '/' do
-	@results = @db.execute 'select * from Posts order by id desc'
 	erb :index			
 end
 
