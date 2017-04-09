@@ -31,14 +31,9 @@ get '/new' do
 end
 
 post '/new' do
-   content = params[:content]
-   author = params[:author]
-   		if content.length <= 0
-   			@error = "Type post text"
-   				return erb :new
-   		end
-   	@db.execute 'INSERT INTO Posts (content, created_date, author) values (?, datetime (),?)', [content, author]
-   erb "You typed: #{content} , author #{author}"
+   p = Post.new params[:post]
+   p.save
+   erb "You typed: #{p.content} , author #{p.author}"
 end
 
 get '/details/:id' do
